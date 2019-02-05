@@ -1,0 +1,5 @@
+/node_modules
+/jsql-javascript-test-app.iml
+/dist
+/debug
+/package-lock.json
