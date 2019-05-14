@@ -11,9 +11,7 @@ pipelines:
         caches:
           - node
         script: # Modify the commands below to build your repository.
-          - apt-get update && apt-get install rsync -y
           - npm install grunt -g
           - npm install grunt
           - npm install
           - grunt
-          - npm run rsync:test

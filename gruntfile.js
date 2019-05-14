@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-    require('jit-grunt')(grunt);
 
     var path = require('path');
     var openPath = path.resolve() + "\\dist\\index.html";
@@ -10,16 +9,6 @@ module.exports = function (grunt) {
             './dist/'
         ],
 
-        concat: {
-            options: {
-                separator: ''
-            },
-            dist: {
-                src: ['src/cases_config.js', 'src/cases_insert.js', 'src/cases_select.js', 'src/cases_delete.js', 'src/cases_update.js'],
-                dest: 'dist/cases.js'
-            }
-        },
-
         copy: {
 
             src: {
@@ -28,7 +17,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: './src',
-                        src: ['index.html'],
+                        src: ['*'],
                         dest: './dist'
                     }
                 ]
@@ -67,7 +56,7 @@ module.exports = function (grunt) {
 
             src: {
                 files: ['src/*.js', 'src/*.html'],
-                tasks: ['buildLocal'],
+                tasks: ['buildLocal', 'preprocess-watch'],
                 options: {
                     nospawn: true
                 }
@@ -91,30 +80,73 @@ module.exports = function (grunt) {
             }
         },
 
+        preprocess: {
+            options: {
+                context: {
+                    HOST: null
+                }
+            },
+            index: {
+                src: 'src/index.html',
+                dest: 'dist/index.html'
+            },
+
+        },
+
         jsql: {
             target: {
                 options: {
-                    apiKey: '==u3SsBh4ZQxdZpLxcyCZCo8i4hAF0lliKNWwMgst0fg==G7x78vNdHH0OSFC0aOdp',
+                    apiKey: 'dawid.senko@jsql.it',
                     src: 'dist/cases.js',
-                    dist: 'dist'
+                    dist: 'dist/cases.js',
+                    devKeyFileName: 'test-key.key',
+                    debug: true,
+                    local: true
                 }
             }
         }
 
     });
 
-    grunt.registerTask('buildDist', ['clean', 'copy:src', 'concat:dist', 'copy:jsql_plugin_dist', 'jsql']);
-    grunt.registerTask('buildLocal', ['clean', 'copy:src', 'concat:dist', 'copy:jsql_plugin_local', 'jsql']);
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-jsql');
+    grunt.loadNpmTasks('grunt-open');
+    grunt.loadNpmTasks('grunt-preprocess');
+
+    grunt.registerTask('buildDist', ['clean', 'copy:src', 'copy:jsql_plugin_dist', 'jsql',]);
+    grunt.registerTask('buildLocal', ['clean', 'copy:src', 'copy:jsql_plugin_local', 'jsql',]);
+
+    grunt.registerTask('preprocess-watch', function () {
+
+        grunt.config('preprocess.options.context.HOST', 'http://localhost:9192');
+        grunt.task.run('preprocess:index');
+
+    });
 
     grunt.registerTask('dev', function () {
+
         grunt.task.run('buildLocal');
+
+        grunt.config('preprocess.options.context.HOST', 'http://localhost:9192');
+        grunt.task.run('preprocess:index');
+
         grunt.task.run('open:dist');
         grunt.task.run('concurrent:watches');
+
     });
 
     grunt.registerTask('default', function () {
+
         grunt.task.run('buildDist');
-        //grunt.task.run('open:dist');
+
+        grunt.config('preprocess.options.context.HOST', 'https://provider.jsql.it');
+        grunt.task.run('preprocess:index');
+
     });
 
 };
