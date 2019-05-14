@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "gruntfile.js",
-  "scripts": {
-     "rsync:test": "rsync -rlzvc --stats --exclude-from '.rsync-ignore' --delete -e 'ssh -p 22' ./dist root@145.239.6.132:/home/deployments/rsync/javascript1"
-  },
+  "scripts": {},
   "author": "JSQL",
   "license": "ISC",
   "dependencies": {
     "jsql-javascript": "latest"
   },
   "devDependencies": {
-    "grunt": "^1.0.3",
+    "grunt": "^1.0.4",
     "grunt-concurrent": "^2.3.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",
@@ -21,7 +19,6 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-jsql": "latest",
     "grunt-open": "^0.2.3",
-    "grunt-shell": "^1.3.0",
-    "jit-grunt": "^0.10.0"
+    "grunt-preprocess": "^5.1.0"
   }
 }

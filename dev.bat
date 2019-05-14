@@ -1,1 +1,1 @@
-cd ../jsql-js-core && grunt && cd ../jsql-javascript-plugin && grunt dev && cd ../jsql-javascript-test-app && grunt buildLocal
+cd ../jsql-js-core && build.bat && cd ../jsql-javascript-plugin && grunt dev && cd ../jsql-javascript-test-app && grunt dev
