@@ -83,7 +83,8 @@ module.exports = function (grunt) {
         preprocess: {
             options: {
                 context: {
-                    HOST: null
+                    HOST: null,
+                    ENV: 'LOCAL'
                 }
             },
             index: {
@@ -145,6 +146,8 @@ module.exports = function (grunt) {
         grunt.task.run('buildDist');
 
         grunt.config('preprocess.options.context.HOST', 'https://test-provider.jsql.it');
+        grunt.config('preprocess.options.context.ENV', 'TEST');
+
         grunt.config('jsql.target.options.env', 'test');
 
         grunt.task.run('preprocess:index');
