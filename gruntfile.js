@@ -101,7 +101,7 @@ module.exports = function (grunt) {
                     dist: 'dist/cases.js',
                     devKeyFileName: 'test-key.key',
                     debug: true,
-                    local: true
+                    env: 'local'
                 }
             }
         }
@@ -124,9 +124,6 @@ module.exports = function (grunt) {
     grunt.registerTask('preprocess-watch', function () {
 
         grunt.config('preprocess.options.context.HOST', 'http://localhost:9192');
-       // grunt.config('preprocess.options.context.HOST', 'https://provider.jsql.it');
-       // grunt.config('jsql.target.options.local', true);
-
         grunt.task.run('preprocess:index');
 
     });
@@ -136,11 +133,8 @@ module.exports = function (grunt) {
         grunt.task.run('buildLocal');
 
         grunt.config('preprocess.options.context.HOST', 'http://localhost:9192');
-      //  grunt.config('preprocess.options.context.HOST', 'https://provider.jsql.it');
-       // grunt.config('jsql.target.options.local', true);
 
         grunt.task.run('preprocess:index');
-
         grunt.task.run('open:dist');
         grunt.task.run('concurrent:watches');
 
@@ -150,8 +144,8 @@ module.exports = function (grunt) {
 
         grunt.task.run('buildDist');
 
-        grunt.config('preprocess.options.context.HOST', 'https://provider.jsql.it');
-       // grunt.config('jsql.target.options.local', false);
+        grunt.config('preprocess.options.context.HOST', 'https://test-provider.jsql.it');
+        grunt.config('jsql.target.options.env', 'test');
 
         grunt.task.run('preprocess:index');
 

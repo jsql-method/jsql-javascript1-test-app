@@ -87,7 +87,7 @@ deploy test:
     ENVIRONMENT_HOST: 172.32.1.31
   environment:
     name: test
-    url: https://test-angular1.jsql.it
+    url: https://test-js.jsql.it
   only:
     refs:
       - test
