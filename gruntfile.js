@@ -97,7 +97,7 @@ module.exports = function (grunt) {
         jsql: {
             target: {
                 options: {
-                    apiKey: 'dawid.senko@jsql.it',
+                    apiKey: 'dawid.senko-javascript@jsql.it',
                     src: 'dist/cases.js',
                     dist: 'dist/cases.js',
                     devKeyFileName: 'test-key.key',
