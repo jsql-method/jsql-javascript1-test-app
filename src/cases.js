@@ -20,7 +20,7 @@ cases[caseName1] = function () {
             host: host, apiKey: apiKey, devKey: devKey
         });
 
-        jsql.insert("insert into person (id, name, surname, age) values (nextval('person_id_seq'), :name, :surname, :age)")
+        jsql.insert("@sql insert into person (id, name, surname, age) values (nextval('person_id_seq'), :name, :surname, :age)")
             .params({
                 name: 'Mirek',
                 surname: 'Wołyński',
@@ -65,7 +65,7 @@ cases[caseName2] = function () {
             host: host, apiKey: apiKey, devKey: devKey
         });
 
-        jsql.insert("insert into car (id, price, year, model) values (nextval('car_id_seq'), ?, ?, ?)")
+        jsql.insert("@sql insert into car (id, price, year, model) values (nextval('car_id_seq'), ?, ?, ?)")
             .params([19.500, 2000, 'Audi A3'])
             .then(function (result) {
                 console.log(caseName2, result);
@@ -105,7 +105,7 @@ cases[caseName3] = function () {
             host: host, apiKey: apiKey, devKey: devKey
         });
 
-        jsql.update("update person set salary = 4000 where age > :age")
+        jsql.update("@sql update person set salary = 4000 where age > :age")
             .param('age', 30)
             .then(function (result) {
                 console.log(caseName3, result);
@@ -147,7 +147,7 @@ cases[caseName4] = function () {
 
         // jsql.update("update car set created_at = ?")
         //     .params([ new Date().getTime() ])
-        jsql.update("update car set type = ?")
+        jsql.update("@sql update car set type = ?")
             .params([ 'osobowy' ])
             .then(function (result) {
                 console.log(caseName4, result);
@@ -187,7 +187,7 @@ cases[caseName5] = function () {
             host: host, apiKey: apiKey, devKey: devKey
         });
 
-        jsql.selectOne("select * from person where age > :ageMin and age < :ageMax limit 1")
+        jsql.selectOne("@sql select * from person where age > :ageMin and age < :ageMax limit 1")
             .param('ageMin', 30)
             .param('ageMax', 50)
             .then(function (result) {
@@ -234,7 +234,7 @@ cases[caseName6] = function () {
             host: host, apiKey: apiKey, devKey: devKey
         });
 
-        jsql.select("select id, price from car")
+        jsql.select("@sql select id, price from car")
             .then(function (result) {
                 console.log(caseName6, result);
 
@@ -279,7 +279,7 @@ cases[caseName7] =  function () {
             host: host, apiKey: apiKey, devKey: devKey
         });
 
-        jsql.remove("delete from person where age > 30")
+        jsql.remove("@sql delete from person where age > 30")
             .then(function (result) {
                 console.log(caseName7, result);
                 resultCallback('SUCCESS');
@@ -317,7 +317,7 @@ cases[caseName8] =  function () {
             host: host, apiKey: apiKey, devKey: devKey
         });
 
-        jsql.remove("delete from car where price <> :price")
+        jsql.remove("@sql delete from car where price <> :price")
             .params({
                 price: 10.000
             })
@@ -361,7 +361,7 @@ cases[caseName9] =  function () {
 
         var transaction = jsql.tx();
 
-        transaction.insert("insert into car (id, price, year, model) values (nextval('car_id_seq'), ?, ?, ?)")
+        transaction.insert("@sql insert into car (id, price, year, model) values (nextval('car_id_seq'), ?, ?, ?)")
             .params([180000, 2018, 'Audi A6'])
             .then(function (result) {
                 console.log(caseName9, result);
@@ -407,7 +407,7 @@ cases[caseName10] =  function () {
 
         var transaction = jsql.tx();
 
-        transaction.insert("insert into car (id, price, year, model) values (nextval('car_id_seq'), ?, ?, ?)")
+        transaction.insert("@sql insert into car (id, price, year, model) values (nextval('car_id_seq'), ?, ?, ?)")
             .params([200000, 2019, 'Volkswagen Variant'])
             .then(function (result) {
                 console.log(caseName10, result);
