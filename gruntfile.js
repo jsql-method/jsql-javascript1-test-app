@@ -101,9 +101,8 @@ module.exports = function (grunt) {
                     src: 'dist/cases.js',
                     dist: 'dist/cases.js',
                     devKeyFileName: 'test-key.key',
-                    debug: true,
-                    env: 'local',
-                    development: true
+                    env: "local",
+                    debug: true
                 }
             }
         }
