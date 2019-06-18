@@ -412,10 +412,8 @@ cases[caseName10] =  function () {
             .then(function (result) {
                 console.log(caseName10, result);
 
-                transaction.commit().then(function(result){
-                    console.log(caseName10, result);
-                    resultCallback('SUCCESS');
-                });
+                transaction.commit().ok();
+                resultCallback('SUCCESS');
 
             })
             .catch(function (error) {
